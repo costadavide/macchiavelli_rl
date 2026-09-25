@@ -39,31 +39,52 @@ class Macchiavelli:
         self.deck1 = Deck()
         self.deck2 = Deck()
         self.num_players = num_players
+        self.starting_cards = {2: 13, 3: 9, 4: 7}.get(num_players, 5)
+        self.players = [Player() for _ in range(num_players)]
+        self.table = None # Decide how to define this. It should hold cards that are on the table
 
     def start_game(self): 
         self.deck1.shuffle()
         self.deck2.shuffle()
-        # shuffle the two decks (and combine them together)
-        # assign cards to players, how many depends on how many players there are
-        # determine the order of play
-        pass 
+
+        for player in self.players:
+            self.deal_cards(self.starting_cards, player)
+        
+        self.players[0].your_turn = True
 
     def deal_cards(self, num_cards, player):
         #to be used in start_game to deal cards to each player + whenever a player has to "fish"
-        for i in range(...): 
+        cards_drawn = []
+        for i in range(num_cards): 
             prob = random.random()
-            if prob < 0.5: 
+            if prob < 0.5 and self.deck1.cards: 
                 # draw from deck1
-                pass
+                cards_drawn.append(self.deck1.draw())
             else: 
                 # draw from deck2
-                pass
+                cards_drawn.append(self.deck2.draw())
+
+        player.cards.extend(cards_drawn)
 
 
+    def player_turn(self, player):
+        # logic for a player's turn
+        # ask for a player's move (a Move object), then validate it and if valid apply it and move to next player. Else ask again for a move
+        pass 
 
 class Player: 
     def __init__(self):
         self.cards = []
         self.your_turn = False 
+
+class Move: 
+    def __init__(self): 
+        pass 
+
+    def propose(self):
+        pass
+
+    def validate(self):
+        pass
 
 
