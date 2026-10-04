@@ -4,14 +4,14 @@ class Deck:
     def __init__(self, deck_num=0):
         self.cards = []
         self.size = 52
-        self.create()
         self.deck_num = deck_num
+        self.create()
 
     def create(self):
         suits = [0, 1, 2, 3] # {0: "Hearts", 1: "Diamonds", 2: "Clubs", 3: "Spades"}
 
         for suit in suits: 
-            for value in range(1, (self.size // 4) + 1): 
+            for value in range(0, (self.size // 4)): # values 0-12 for each suit  
                 self.cards.append(Card(value, suit, deck_num=self.deck_num))
 
     def shuffle(self): 
@@ -31,17 +31,19 @@ class Card:
         self.suit_names = {0: "Hearts", 1: "Diamonds", 2: "Clubs", 3: "Spades"}
 
     def __repr__(self):
-        return f"{self.value} of {self.suit_names[self.suit]}"
+        return f"{self.value+1} of {self.suit_names[self.suit]}"
 
     def __str__(self):
-        return f"{self.value} of {self.suit_names[self.suit]}"
+        return f"{self.value+1} of {self.suit_names[self.suit]}"
 
 
 class Macchiavelli: 
     def __init__(self, players): 
-        num_players = len(players)
         if (not isinstance(players, list)) or (not all(isinstance(player, Player) for player in players)):
             raise ValueError("Players must be a list of Player objects")
+        
+        num_players = len(players)
+
         if num_players < 2 or num_players > 6:
             raise ValueError("Number of players must be between 2 and 6")
         
@@ -67,13 +69,20 @@ class Macchiavelli:
         #to be used in start_game to deal cards to each player + whenever a player has to "fish"
         cards_drawn = []
         for i in range(num_cards): 
-            prob = random.random()
-            if prob < 0.5 and self.deck1.cards: 
-                # draw from deck1
+            if self.deck1.cards and self.deck2.cards:
+                # draw from either deck
+                prob = random.random()
+                if prob < 0.5: 
+                    cards_drawn.append(self.deck1.draw())
+                else: 
+                    # draw from deck2
+                    cards_drawn.append(self.deck2.draw())
+            elif self.deck1.cards:
                 cards_drawn.append(self.deck1.draw())
-            else: 
-                # draw from deck2
+            elif self.deck2.cards:
                 cards_drawn.append(self.deck2.draw())
+            else: 
+                raise ValueError("No cards left to draw")
 
         player.cards.extend(cards_drawn)
 
@@ -131,7 +140,7 @@ class Table:
         for card in cards:
             self.table_counts[card.suit][card.value] += 1
 
-        self.table.extend(cards)
+        self.table.append(cards)
 
     def validate_move(self, move):
         """
