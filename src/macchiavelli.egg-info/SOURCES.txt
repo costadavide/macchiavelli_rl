@@ -1,0 +1,16 @@
+README.md
+pyproject.toml
+src/macchiavelli/__init__.py
+src/macchiavelli/game.py
+src/macchiavelli/sim.py
+src/macchiavelli.egg-info/PKG-INFO
+src/macchiavelli.egg-info/SOURCES.txt
+src/macchiavelli.egg-info/dependency_links.txt
+src/macchiavelli.egg-info/entry_points.txt
+src/macchiavelli.egg-info/requires.txt
+src/macchiavelli.egg-info/top_level.txt
+src/macchiavelli/agents/__init__.py
+src/macchiavelli/agents/greedy_agent_1.py
+src/macchiavelli/agents/greedy_agent_2.py
+src/macchiavelli/agents/random_agent.py
+src/macchiavelli/agents/rl_agent.py

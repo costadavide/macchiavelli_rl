@@ -1,0 +1,2 @@
+[console_scripts]
+macchiavelli-sim = macchiavelli.sim:main
