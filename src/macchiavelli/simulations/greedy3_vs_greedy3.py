@@ -4,8 +4,6 @@ from macchiavelli.game import Macchiavelli
 from macchiavelli.agents.greedy_agent_3 import GreedyAgentV3
 
 
-# very slow better not to run this 
-
 
 def run(num_games=100, seed=23):
     random.seed(seed)
