@@ -239,6 +239,9 @@ class Table:
             return False
 
         values = sorted(card.value for card in meld)
+        # no card twice, so the ace can't be at both ends (A-...-K-A)
+        if len(set(values)) != len(values):
+            return False
         if values == list(range(values[0], values[0] + len(values))):
             return True
 
